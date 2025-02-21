@@ -10,8 +10,8 @@
    Copy the router folder to your project.
 
 2. **Define Your Routes**  
-   The syntax is pretty straightforward and very similar to React Router. Define some routes and the components to render (elements) within the RouterProvider.
-   Then simply add the populated provider to your main.tsx file.
+   The syntax is pretty straightforward and very similar to React Router. Define some routes and the associated components (elements) within the RouterProvider.
+   Finally, integrate the fully configured RouterProvider into your main.tsx file to enable seamless navigation throughout your application.
 
    ```jsx
    <RouterProvider base={"http://localhost:5173"}>
