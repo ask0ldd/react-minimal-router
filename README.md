@@ -11,6 +11,7 @@
 
 2. **Define Your Routes**  
    The syntax is pretty straightforward and very similar to React Router. Define some routes and the components to render (elements) within the RouterProvider.
+   Then simply add the populated provider to your main.tsx file.
 
    ```jsx
    <RouterProvider base={"http://localhost:5173"}>
