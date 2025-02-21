@@ -6,7 +6,7 @@
    Copy the router folder to your project.
 
 2. **Define Your Routes**  
-   The syntax is pretty straightforward and very similar to React Router. Define some routes and the components to render (elements) within the router provider.
+   The syntax is pretty straightforward and very similar to React Router. Define some routes and the components to render (elements) within the RouterProvider.
 
    ```jsx
    <RouterProvider base={"http://localhost:5173"}>
@@ -20,6 +20,10 @@
 
 3. **Use the `<Link>` Component**
    Use the `<Link>` component instead of the usual anchor `<a>`.
+
+   ```jsx
+   <Link href={"/page1/"}>Page 1</Link>
+   ```
 
 4. **Access Router Functions**
    Use the `useRouter` hook to access the `navigate` and `getParams` functions.
