@@ -4,7 +4,7 @@ import React from "react";
 import Route from './Route';
 import { RouterContext } from "./RouterContext";
 
-export function RouterProvider({ children, base = '' }: { children: ReactNode, base? : string }){
+export function RouterProvider({ children, base = '', checkAuthCallback = () => true }: { children: ReactNode, base? : string, checkAuthCallback? : () => boolean }){
 
     console.log("router refresh")
 
@@ -23,7 +23,9 @@ export function RouterProvider({ children, base = '' }: { children: ReactNode, b
                     path : '*',
                     pathMatchingRegex : new RegExp('(?s:.*)'),
                     paramsKeys : [],
-                    element: child.props.element 
+                    element: child/*.props.element*/,
+                    /*protected : child.props.protect,
+                    unauthFallback: child.props.unauthFallback*/
                 })
 
                 // getting rid of trailing "/""
@@ -37,7 +39,7 @@ export function RouterProvider({ children, base = '' }: { children: ReactNode, b
                     path,
                     pathMatchingRegex,
                     paramsKeys,
-                    element: child.props.element 
+                    element: child/*.props.element */
                 })
 
             }
@@ -116,7 +118,7 @@ export function RouterProvider({ children, base = '' }: { children: ReactNode, b
     }, [params.current])
 
     return (
-        <RouterContext value={{navigate, getParams}}>
+        <RouterContext value={{navigate, getParams, checkAuthCallback}}>
             {activeChild}
         </RouterContext>
     )

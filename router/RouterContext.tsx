@@ -5,4 +5,5 @@ export const RouterContext = createContext<RouterContextValue | undefined>(undef
 interface RouterContextValue {
     getParams : () => Record<string, string>
     navigate : (path : string) => void
+    checkAuthCallback : () => boolean
 }
