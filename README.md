@@ -72,7 +72,7 @@
      <RouterProvider base={'http://localhost:5173'} checkAuthCallback={() => false}>
      ```
 
-   - Mark the target route with the `protect` prop and defined a `fallbackElement` :
+   - Mark the target route with the `protect` prop and define a `fallbackElement` :
      ```jsx
      <Route
        path={"/test1"}
