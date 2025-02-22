@@ -1,9 +1,5 @@
 ## Simple and Lightweight React Router for Portfolio Projects
 
-### Coming Soon
-
-> > Protected routes
-
 ### Implementation Steps
 
 1. **Copy the Router Folder**  
@@ -65,6 +61,26 @@
    return Project Details for Project {id};
    }
    ```
+
+7. **Protected Routes**
+
+   To protect any route you have to follow two simple steps :
+
+   - Pass a callback allowing the router to check if the user is authenticated :
+
+     ```jsx
+     <RouterProvider base={'http://localhost:5173'} checkAuthCallback={() => false}>
+     ```
+
+   - Mark the target route with the `protect` prop and defined a `fallbackElement` :
+     ```jsx
+     <Route
+       path={"/test1"}
+       element={<Page1 />}
+       protect
+       fallbackElement={<App />}
+     />
+     ```
 
 ### Conclusion
 
