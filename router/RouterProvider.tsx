@@ -147,3 +147,23 @@ interface IRoute{
     paramsKeys: string[]
     element: ReactNode
 }
+
+/*
+    const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Root />,
+        children: [
+        {
+            path: "home",
+            element: <Home />,
+        },
+        {
+            path: "about",
+            element: <About />,
+        },
+        ],
+    },
+    ]);
+    <RouterProvider router={router} />
+*/
