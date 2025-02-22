@@ -31,34 +31,34 @@
 
 5. **Programmatic Navigation**
 
-   Access programmatic navigation using the `navigate` function from `useRouter` hook :
+   Access programmatic navigation using the `navigate` function from the `useRouter` hook :
 
    ```jsx
-   import { useRouter } from './path-to-router-folder';
+   import { useRouter } from "./path-to-router-hook";
 
-   function ProjectCard({ id }) {
-       const { navigate } = useRouter();
+   function Page2() {
+     const { navigate } = useRouter();
 
-       const handleClick = () => {
-       navigate(`/project/${id}`);
-       };
-
-       return View Project;
+     return (
+       <div>
+         This is Page 2!
+         <div onClick={() => navigate("/")}>Home</div>
+       </div>
+     );
    }
    ```
 
 6. **Access Route Parameters**
 
-   Retrieve dynamic route parameters using the `getParams` function from `useRouter` hook :
+   Retrieve dynamic route parameters using the `getParams` function from the `useRouter` hook :
 
    ```jsx
-   import { useRouter } from './path-to-router-folder';
+   import { useRouter } from "./path-to-router-hook";
 
-   function ProjectDetails() {
-   const { getParams } = useRouter();
-   const { id } = getParams();
+   function Item() {
+     const { getParams } = useRouter();
 
-   return Project Details for Project {id};
+     return <div>This is Item {getParams().id}</div>;
    }
    ```
 
