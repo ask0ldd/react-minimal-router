@@ -12,10 +12,11 @@
    ```jsx
    <RouterProvider base={"http://localhost:5173"}>
      <Route path={"/"} element={<App />} />
+     <Route path={"/login"} element={<Login />} />
      <Route path={"/page1"} element={<Page1 />} />
      <Route path={"/page2"} element={<Page2 />} />
      <Route path={"/item/:id"} element={<Item />} />
-     <Route path={"*"} element={<App />} />
+     <Route path={"*"} element={<Page404 />} />
    </RouterProvider>
    ```
 
@@ -58,7 +59,8 @@
    function Item() {
      const { getParams } = useRouter();
 
-     // retrieves the /:id segment from such a route : <Route path={"/item/:id"} element={<Item />} />
+     // retrieves the /:id segment from such a route :
+     // <Route path={"/item/:id"} element={<Item />} />
      return <div>This is Item {getParams().id}</div>;
    }
    ```
