@@ -69,7 +69,7 @@
    - Pass a callback allowing the router to check if the user is authenticated :
 
      ```jsx
-     <RouterProvider base={'http://localhost:5173'} checkAuthCallback={() => false}>
+     <RouterProvider base={'http://localhost:5173'} checkAuthCallback={() => isAuthenticated()}>
      ```
 
    - Mark the target route with the `protect` prop and define a `fallbackElement` :
