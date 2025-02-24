@@ -58,6 +58,7 @@
    function Item() {
      const { getParams } = useRouter();
 
+     // retrieves the /:id segment from such a route : <Route path={"/item/:id"} element={<Item />} />
      return <div>This is Item {getParams().id}</div>;
    }
    ```
@@ -76,9 +77,9 @@
      ```jsx
      <Route
        path={"/test1"}
-       element={<Page1 />}
+       element={<ProtectedPage />}
        protect
-       fallbackElement={<App />}
+       fallbackElement={<Login />}
      />
      ```
 
