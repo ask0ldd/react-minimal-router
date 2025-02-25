@@ -23,9 +23,7 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
                     path : '*',
                     pathMatchingRegex : new RegExp('(?s:.*)'),
                     paramsKeys : [],
-                    element: child/*.props.element*/,
-                    /*protected : child.props.protect,
-                    unauthFallback: child.props.unauthFallback*/
+                    element: child
                 })
 
                 // getting rid of trailing "/""
@@ -39,7 +37,7 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
                     path,
                     pathMatchingRegex,
                     paramsKeys,
-                    element: child/*.props.element */
+                    element: child
                 })
 
             }
@@ -47,7 +45,9 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
         })
     }, [children])
 
+    /*
     // history.pushState now sends a pushstate event
+    */
     const pushStateReplaced = useRef<boolean>(false)
     useEffect(() => {
         if(pushStateReplaced.current) return
@@ -87,6 +87,9 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
         if(!Object.is(activeChild, route.element)) setActiveChild(route.element)
     }, [activeChild, setActiveChild]);
 
+    /*
+    // React to any url change
+    */
     useEffect(() => {
         try{
             // look for a route matching the navbar url
@@ -107,12 +110,12 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
         }
     }, [historyState])
 
-    // programmatical navigation
+    // Allows for programmatical navigation
     const navigate = useCallback((path : string) =>{
         history.pushState(null, '', path)
     }, [])
 
-    // retrieve params
+    // Allow for url params retrieval
     const getParams = useCallback(() => {
         return params.current
     }, [params.current])
