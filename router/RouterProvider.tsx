@@ -40,7 +40,7 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
                     })
 
                 }
-                throw new Error(`All children of Router must be Route components.`)
+                throw new RouterChildNotRouteError()
             })
         }catch(error){
             console.error(error)
@@ -161,6 +161,15 @@ export class NoRouteMatchingError extends Error {
       this.name = 'NoRouteMatchingError';
       
       Object.setPrototypeOf(this, NoRouteMatchingError.prototype);
+    }
+}
+
+export class RouterChildNotRouteError extends Error {
+    constructor(message?: string) {
+      super(message || 'All children of Router must be Route components.');
+      this.name = 'RouterChildNotRouteError';
+      
+      Object.setPrototypeOf(this, RouterChildNotRouteError.prototype);
     }
 }
 
