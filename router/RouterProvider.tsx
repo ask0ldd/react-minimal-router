@@ -6,8 +6,6 @@ import { RouterContext } from "./RouterContext";
 
 export function RouterProvider({ children, base = '', checkAuthCallback = () => true }: { children: ReactNode, base? : string, checkAuthCallback? : () => boolean }){
 
-    console.log("router refresh")
-
     // the element that needs to be displayed according to the active path
     const [activeChild, setActiveChild] = useState<ReactNode>(<></>)
     const params = useRef<Record<string, string>>({})
@@ -15,34 +13,38 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
     // convert all the <Route> child components of the context provider into a {path, pathMatchingRegex, paramsKeys, element} object
     // !!! add try catch
     const routing = useMemo(() => {
-        return React.Children.map(children, (child) => {
-            if (React.isValidElement<React.ComponentProps<typeof Route>>(child) && child.type === Route) {
+        try{
+            return React.Children.map(children, (child) => {
+                if (React.isValidElement<React.ComponentProps<typeof Route>>(child) && child.type === Route) {
 
-                // fallback route
-                if(child.props.path == "*") return ({
-                    path : '*',
-                    pathMatchingRegex : new RegExp('(?s:.*)'),
-                    paramsKeys : [],
-                    element: child
-                })
+                    // fallback route
+                    if(child.props.path == "*") return ({
+                        path : '*',
+                        pathMatchingRegex : new RegExp('(?s:.*)'),
+                        paramsKeys : [],
+                        element: child
+                    })
 
-                // getting rid of trailing "/""
-                const path = base + child.props.path.replace(/\/$/, "")
-                const paramsKeys = URLUtils.extractParams(path)
-                const pathMatchingRegex = paramsKeys.length == 0 ? 
-                    new RegExp(`^${path}$`) : 
-                        // replace /: with the same number of /[^/]+ so it can be compared to the active url
-                        new RegExp(`^${path}`.replace(/\/:[^/]+(?=\/|$)/g, (match) => match.endsWith('/') ? `(/[^/]+)` + '/' : `(/[^/]+)`) + '$')
-                return ({ 
-                    path,
-                    pathMatchingRegex,
-                    paramsKeys,
-                    element: child
-                })
+                    // getting rid of trailing "/""
+                    const path = base + child.props.path.replace(/\/$/, "")
+                    const paramsKeys = URLUtils.extractParams(path)
+                    const pathMatchingRegex = paramsKeys.length == 0 ? 
+                        new RegExp(`^${path}$`) : 
+                            // replace /: with the same number of /[^/]+ so it can be compared to the active url
+                            new RegExp(`^${path}`.replace(/\/:[^/]+(?=\/|$)/g, (match) => match.endsWith('/') ? `(/[^/]+)` + '/' : `(/[^/]+)`) + '$')
+                    return ({ 
+                        path,
+                        pathMatchingRegex,
+                        paramsKeys,
+                        element: child
+                    })
 
-            }
-            throw new Error(`All children of Router must be Route components.`)
-        })
+                }
+                throw new Error(`All children of Router must be Route components.`)
+            })
+        }catch(error){
+            console.error(error)
+        }
     }, [children])
 
     /*
@@ -104,7 +106,7 @@ export function RouterProvider({ children, base = '', checkAuthCallback = () => 
             const defaultRoute = routing?.find(route => route.path == '*')
             if(defaultRoute) handleMatchingRoute(defaultRoute, historyState)
 
-            throw new Error("No route matching this url.")
+            throw new NoRouteMatchingError()
         } catch(error){
             console.error(error)
         }
@@ -151,6 +153,15 @@ interface IRoute{
     pathMatchingRegex: RegExp
     paramsKeys: string[]
     element: ReactNode
+}
+
+export class NoRouteMatchingError extends Error {
+    constructor(message?: string) {
+      super(message || 'No route matching this url.');
+      this.name = 'NoRouteMatchingError';
+      
+      Object.setPrototypeOf(this, NoRouteMatchingError.prototype);
+    }
 }
 
 /*
